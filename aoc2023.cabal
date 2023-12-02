@@ -25,7 +25,7 @@ executable aoc2023
     main-is:          Main.hs
 
     -- Modules included in this executable, other than Main.
-    other-modules: AoC2023.Exercise AoC2023.Day1.Part1
+    other-modules: AoC2023.Exercise AoC2023.Day1.Part1 AoC2023.Day1.Part2
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:

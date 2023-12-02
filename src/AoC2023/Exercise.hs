@@ -9,8 +9,8 @@ class Exercise e where
 
 solve :: Exercise e => e -> IO ()
 solve e = do
-    putStrLn $ "Running solution " ++ (prettyName e) ++ ":"
-    putStrLn $ "--- Output below ---\n"
+    putStrLn $ "Running solution " ++ prettyName e ++ ":"
+    putStrLn "--- Output below ---\n"
 
-    exerciseInput <- readFile ("resources" </> (resourceName e))
-    putStrLn $ (solution e exerciseInput)
+    exerciseInput <- readFile ("resources" </> resourceName e)
+    putStrLn $ solution e exerciseInput
