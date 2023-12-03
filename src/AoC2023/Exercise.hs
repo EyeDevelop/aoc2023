@@ -1,4 +1,4 @@
-module AoC2023.Exercise where
+module AoC2023.Exercise (Exercise, resourceName, prettyName, solution, solve) where
 
 import System.FilePath
 

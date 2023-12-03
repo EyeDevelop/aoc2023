@@ -1,9 +1,10 @@
-module AoC2023.Day1.Part1 where
+module AoC2023.Day1.Part1 (Day1Part1 (Day1Part1), firstDigit, appendDigits) where
 
 import AoC2023.Exercise (Exercise (..))
-import Data.Char (digitToInt, isDigit)
+import Data.Char (isDigit)
 
 firstDigit :: String -> Char
+firstDigit "" = error "No digit in string"
 firstDigit (x : xs)
   | isDigit x = x
   | otherwise = firstDigit xs
