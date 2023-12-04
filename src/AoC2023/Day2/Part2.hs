@@ -1,4 +1,6 @@
-module AoC2023.Day2.Part2 (Day2Part2 (Day2Part2)) where
+module AoC2023.Day2.Part2 (
+    Day2Part2 (Day2Part2),
+) where
 
 import AoC2023.Exercise (Exercise (..))
 import AoC2023.Day2.Part1 (GameSet, Colour (..), parseGames, Game (..), ColourCount (colour, count))
