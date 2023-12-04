@@ -28,7 +28,9 @@ library
       AoC2023.Day1.Part1
       AoC2023.Day1.Part2
       AoC2023.Day2.Part1
+      AoC2023.Day2.Part2
       AoC2023.Exercise
+      AoC2023.Util.Parser
   other-modules:
       Paths_AoC2023
   autogen-modules:

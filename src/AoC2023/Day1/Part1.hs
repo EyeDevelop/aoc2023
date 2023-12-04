@@ -1,4 +1,8 @@
-module AoC2023.Day1.Part1 (Day1Part1 (Day1Part1), firstDigit, appendDigits) where
+module AoC2023.Day1.Part1 (
+  Day1Part1 (Day1Part1),
+  firstDigit,
+  appendDigits
+) where
 
 import AoC2023.Exercise (Exercise (..))
 import Data.Char (isDigit)
