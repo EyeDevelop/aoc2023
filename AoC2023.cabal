@@ -31,6 +31,8 @@ library
       AoC2023.Day2.Part2
       AoC2023.Day3.Part1
       AoC2023.Day3.Part2
+      AoC2023.Day4.Part1
+      AoC2023.Day4.Part2
       AoC2023.Exercise
       AoC2023.Util.Parser
   other-modules:
