@@ -1,7 +1,7 @@
 module Main (main) where
 
-import AoC2023.Day4.Part2 (Day4Part2 (Day4Part2))
+import AoC2023.Day5.Part1 (Day5Part1 (Day5Part1))
 import AoC2023.Exercise (solve)
 
 main :: IO ()
-main = solve Day4Part2
+main = solve Day5Part1

@@ -1,15 +1,21 @@
 module AoC2023.Util.Parser
   ( Parser (parse),
     whitespace,
+    newline,
     literal,
     notLiteral,
     number,
+    numberList,
     many,
+    times,
+    delimited,
+    takeJust,
   )
 where
 
 import Control.Applicative (Alternative (empty, (<|>)))
-import Data.Char (isDigit, isSpace)
+import Data.Char (isDigit, isSpace, isControl)
+import Data.List (isPrefixOf)
 
 -- Simple parser implementation
 newtype Parser a = Parser {parse :: String -> Maybe (a, String)}
@@ -38,21 +44,24 @@ instance Alternative Parser where
 
 whitespace :: Parser String
 whitespace = Parser $ \input ->
-  case span isSpace input of
+  case span (\c -> isSpace c && not (isControl c)) input of
     ("", _) -> Nothing
     (_, rest) -> Just ("", rest)
 
+newline :: Parser String
+newline = literal "\r\n" <|> literal "\n"
+
 literal :: String -> Parser String
 literal lit = Parser $ \input ->
-  if take (length lit) input == lit
-    then Just (splitAt (length lit) input)
+  if lit `isPrefixOf` input
+    then Just (lit, drop (length lit) input)
     else Nothing
 
 notLiteral :: String -> Parser String
 notLiteral lit = Parser $ \input ->
-  if take (length lit) input == lit
+  if lit `isPrefixOf` input || null input
     then Nothing
-    else Just (splitAt (length lit) input)
+    else Just (lit, drop (length lit) input)
 
 number :: Parser Int
 number =
@@ -64,7 +73,21 @@ number =
             (digits, rest) -> Just (digits, rest)
       )
 
+numberList :: Parser [Int]
+numberList = (:) <$> number <*> many ((\_ n -> n) <$> whitespace <*> number)
+
 many :: Parser a -> Parser [a]
 many p = many' <|> pure []
   where
     many' = (:) <$> p <*> many p
+
+times :: Int -> Parser a -> Parser [a]
+0 `times` _ = pure []
+count `times` p = (:) <$> p <*> times (count - 1) p
+
+delimited :: Parser a -> Parser b -> Parser [b]
+delimited a b = (:) <$> b <*> many((\_ v -> v) <$> a <*> b)
+
+takeJust :: Maybe (a, String) -> a
+takeJust (Just (v, _)) = v
+takeJust _ = error "Could not parse!"
