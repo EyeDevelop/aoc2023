@@ -18,7 +18,7 @@ module AoC2023.Util.Parser
 where
 
 import Control.Applicative (Alternative (empty, (<|>)))
-import Data.Char (isDigit, isSpace, isControl, isAlphaNum)
+import Data.Char (isAlphaNum, isControl, isDigit, isSpace)
 import Data.List (isPrefixOf)
 
 -- Simple parser implementation
@@ -81,16 +81,14 @@ digit = Parser $ \input ->
 
 number :: Parser Int
 number =
-  (\digits -> read digits :: Int)
-    <$> Parser
-      ( \input ->
-          case span isDigit input of
-            ("", _) -> Nothing
-            (digits, rest) -> Just (digits, rest)
-      )
+  ( (\a b -> read (a ++ foldr1 (++) b) :: Int)
+      <$> literal "-"
+      <*> many digit
+  )
+    <|> ((\c -> read (foldr1 (++) c) :: Int) <$> many digit)
 
 numberList :: Parser [Int]
-numberList = (:) <$> number <*> many ((\_ n -> n) <$> whitespace <*> number)
+numberList = whitespace `delimited` number
 
 many :: Parser a -> Parser [a]
 many p = many' <|> pure []
