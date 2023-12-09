@@ -1,0 +1,14 @@
+JJJ2J 967
+KQKK6 3
+J2346 867
+48338 442
+Q9475 774
+---
+
+JJJ2J FiveOfAKind
+KQKK6 Threeofakind
+J2346 Pair
+48338 TwoPair
+Q9475 HighCard
+
+[774, 867, 443, 3, 967]
