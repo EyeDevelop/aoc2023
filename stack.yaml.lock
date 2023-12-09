@@ -3,12 +3,5 @@
 # For more information, please see the documentation at:
 #   https://docs.haskellstack.org/en/stable/lock_files
 
-packages:
-- completed:
-    hackage: parallel-3.2.2.0@sha256:b993406e98fe9126eff4a69d28e7e361037dd1c0892a9fd6c26e1f92eb9c4fa4,1926
-    pantry-tree:
-      sha256: a4b7712b272e1f5da4b160820fff47ba24ed2732af3b2581f3094ea8422a9b8c
-      size: 392
-  original:
-    hackage: parallel-3.2.2.0
+packages: []
 snapshots: []

@@ -5,6 +5,7 @@ module AoC2023.Day8.Part1
     parseDirections,
     findNode,
     takeDirection,
+    walk,
   )
 where
 
