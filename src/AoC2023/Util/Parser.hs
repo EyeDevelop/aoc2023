@@ -1,6 +1,7 @@
 module AoC2023.Util.Parser
   ( Parser (parse),
     whitespace,
+    word,
     newline,
     literal,
     notLiteral,
@@ -10,12 +11,14 @@ module AoC2023.Util.Parser
     many,
     times,
     delimited,
+    enclosed,
+    parens,
     takeJust,
   )
 where
 
 import Control.Applicative (Alternative (empty, (<|>)))
-import Data.Char (isDigit, isSpace, isControl)
+import Data.Char (isDigit, isSpace, isControl, isAlphaNum)
 import Data.List (isPrefixOf)
 
 -- Simple parser implementation
@@ -48,6 +51,12 @@ whitespace = Parser $ \input ->
   case span (\c -> isSpace c && not (isControl c)) input of
     ("", _) -> Nothing
     (_, rest) -> Just ("", rest)
+
+word :: Parser String
+word = Parser $ \input ->
+  case span isAlphaNum input of
+    ("", _) -> Nothing
+    (w, rest) -> Just (w, rest)
 
 newline :: Parser String
 newline = literal "\r\n" <|> literal "\n"
@@ -93,7 +102,13 @@ times :: Int -> Parser a -> Parser [a]
 count `times` p = (:) <$> p <*> times (count - 1) p
 
 delimited :: Parser a -> Parser b -> Parser [b]
-delimited a b = (:) <$> b <*> many((\_ v -> v) <$> a <*> b)
+delimited a b = (:) <$> b <*> many ((\_ v -> v) <$> a <*> b)
+
+enclosed :: Parser a -> Parser b -> Parser c -> Parser b
+enclosed a b c = (\_ r _ -> r) <$> a <*> b <*> c
+
+parens :: Parser b -> Parser b
+parens b = enclosed (literal "(") b (literal ")")
 
 takeJust :: Maybe (a, String) -> a
 takeJust (Just (v, _)) = v
