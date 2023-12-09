@@ -5,6 +5,7 @@ import AoC2023.Exercise (Exercise (..))
 import AoC2023.Util.Parser (takeJust, Parser (parse))
 import AoC2023.Day8.Part1 (Direction, Node (..), takeDirection, parseDirections)
 import Data.List (isSuffixOf)
+import Control.Parallel.Strategies
 
 findNodesWith :: (Node -> Bool) -> [Node] -> [Node]
 findNodesWith _ [] = []
@@ -21,7 +22,9 @@ walk (directions, nodes) = walkWith 0 (findNodesWith (\(Node name _ _) -> "A" `i
     walkWith :: Int -> [Node] -> Int
     walkWith count currentNodes
       | all (\(Node name _ _) -> "Z" `isSuffixOf` name) currentNodes = count
-      | otherwise = walkWith (count + 1) (map (takeDirection nodes (nextDirection count)) currentNodes)
+      | otherwise =
+        let nextNodes = parMap rseq (takeDirection nodes (nextDirection count)) currentNodes
+        in walkWith (count + 1) nextNodes
 
 answer :: String -> String
 answer = show . walk . takeJust . parse parseDirections

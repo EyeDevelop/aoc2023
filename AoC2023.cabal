@@ -54,6 +54,7 @@ library
   build-depends:
       base >=4.7 && <5
     , filepath >=1.4.2.2
+    , parallel >=3.2.2.0
   default-language: Haskell2010
 
 executable AoC2023-exe
@@ -69,6 +70,7 @@ executable AoC2023-exe
       AoC2023
     , base >=4.7 && <5
     , filepath >=1.4.2.2
+    , parallel >=3.2.2.0
   default-language: Haskell2010
 
 test-suite AoC2023-test
@@ -85,4 +87,5 @@ test-suite AoC2023-test
       AoC2023
     , base >=4.7 && <5
     , filepath >=1.4.2.2
+    , parallel >=3.2.2.0
   default-language: Haskell2010
