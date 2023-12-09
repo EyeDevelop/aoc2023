@@ -6,7 +6,7 @@ module AoC2023.Day4.Part2 (
 import AoC2023.Exercise (Exercise (..))
 import AoC2023.Day4.Part1 (Card (Card), parseCard)
 
-import AoC2023.Util.Parser (Parser(parse))
+import AoC2023.Util.Parser (Parser(parse), takeJust)
 
 matches :: Card -> Int
 matches (Card (_, _, [])) = 0
@@ -32,10 +32,7 @@ playScratchCards cards = sum $ map snd $ playRound (map (, 1) cards)
 -- 5: 0 matches   | [(1, 1), (2, 2), (3, 4), (4, 8), (5, 14)]
 
 answer :: String -> String
-answer = show . playScratchCards . map (takeGame . parse parseCard) . lines
-  where
-    takeGame :: Maybe (Card, String) -> Card
-    takeGame (Just (c, _)) = c
+answer = show . playScratchCards . map (takeJust . parse parseCard) . lines
 
 data Day4Part2 = Day4Part2
 

@@ -28,10 +28,7 @@ getScore = getScoreWith 0 (const 1)
       | otherwise = getScoreWith score fn (Card (card, winners, ns))
 
 answer :: String -> String
-answer = show . sum . map (getScore . getCard . parse parseCard) . lines
-  where
-    getCard :: Maybe (Card, String) -> Card
-    getCard (Just (c, _)) = c
+answer = show . sum . map (getScore . takeJust . parse parseCard) . lines
 
 data Day4Part1 = Day4Part1
 

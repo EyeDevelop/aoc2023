@@ -4,6 +4,7 @@ module AoC2023.Util.Parser
     newline,
     literal,
     notLiteral,
+    digit,
     number,
     numberList,
     many,
@@ -62,6 +63,12 @@ notLiteral lit = Parser $ \input ->
   if lit `isPrefixOf` input || null input
     then Nothing
     else Just (lit, drop (length lit) input)
+
+digit :: Parser String
+digit = Parser $ \input ->
+  if not (null input) && isDigit (head input)
+    then Just ([head input], drop 1 input)
+    else Nothing
 
 number :: Parser Int
 number =
