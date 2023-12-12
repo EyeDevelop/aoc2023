@@ -27,7 +27,7 @@ isIncluded grid pos
       Nothing -> False
 
     wallUp :: Bool
-    wallUp = castRay (\tile -> tile `elem` [Pipe EastWest, Pipe ]) North pos
+    wallUp = castRay (\tile -> tile `elem` [Pipe EastWest]) North pos
 
     wallDown :: Bool
     wallDown = castRay (Pipe EastWest ==) South pos
