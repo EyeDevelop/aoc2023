@@ -1,7 +1,11 @@
-{-# LANGUAGE TupleSections #-}
 {-# LANGUAGE NumericUnderscores #-}
+{-# LANGUAGE TupleSections #-}
+
 module AoC2023.Day11.Part1
   ( Day11Part1 (Day11Part1),
+    pairs,
+    galaxies,
+    addCoords,
   )
 where
 
@@ -11,7 +15,7 @@ import Data.List (transpose)
 expandRows :: [String] -> [String]
 expandRows [] = []
 expandRows (x : xs)
-  | all ('.' ==) x = [x | _ <- [1..1_000_000]] ++ expandRows xs
+  | all ('.' ==) x = x : x : expandRows xs
   | otherwise = x : expandRows xs
 
 distance :: (Int, Int) -> (Int, Int) -> Int
@@ -21,14 +25,14 @@ expand :: [String] -> [String]
 expand = transpose . expandRows . transpose . expandRows
 
 galaxies :: [((Int, Int), Char)] -> [(Int, Int)]
-galaxies = map fst . filter (('#' == ) . snd)
+galaxies = map fst . filter (('#' ==) . snd)
 
 pairs :: [(Int, Int)] -> [((Int, Int), (Int, Int))]
 pairs [] = []
-pairs (x:xs) = map (x, ) xs ++ pairs xs
+pairs (x : xs) = map (x,) xs ++ pairs xs
 
 addCoords :: [[Char]] -> [((Int, Int), Char)]
-addCoords lst = concatMap (\(rowInd, row) -> zipWith (\colInd col -> ((rowInd, colInd), col)) [0..] row ) $ zip [0..] lst
+addCoords lst = concatMap (\(rowInd, row) -> zipWith (\colInd col -> ((rowInd, colInd), col)) [0 ..] row) $ zip [0 ..] lst
 
 answer :: String -> String
 answer = show . sum . map (uncurry distance) . pairs . galaxies . addCoords . expand . lines
