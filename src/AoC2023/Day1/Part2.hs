@@ -1,9 +1,10 @@
-module AoC2023.Day1.Part2 (
-  Day1Part2 (Day1Part2),
-) where
+module AoC2023.Day1.Part2
+  ( Day1Part2 (Day1Part2),
+  )
+where
 
-import AoC2023.Exercise (Exercise (..))
 import AoC2023.Day1.Part1 (appendDigits)
+import AoC2023.Exercise (Exercise (..))
 
 -- Append last character back for parsing in case
 -- a 'digit' has overlap.

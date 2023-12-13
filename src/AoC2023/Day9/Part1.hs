@@ -1,16 +1,19 @@
 {-# LANGUAGE InstanceSigs #-}
-module AoC2023.Day9.Part1 (
-    Day9Part1 (Day9Part1),
+
+module AoC2023.Day9.Part1
+  ( Day9Part1 (Day9Part1),
     differences,
     extrapolate,
-) where
+  )
+where
+
 import AoC2023.Exercise (Exercise (..))
-import AoC2023.Util.Parser (takeJust, Parser (parse), numberList)
+import AoC2023.Util.Parser (Parser (parse), numberList, takeJust)
 
 differences :: [Int] -> [Int]
 differences [] = []
 differences [_] = []
-differences (x:xs) = head xs - x : differences xs
+differences (x : xs) = head xs - x : differences xs
 
 extrapolate :: [Int] -> Int
 extrapolate lst
@@ -23,7 +26,7 @@ answer = show . sum . map (extrapolate . takeJust . parse numberList) . lines
 data Day9Part1 = Day9Part1
 
 instance Exercise Day9Part1 where
-    resourceName :: Day9Part1 -> FilePath
-    resourceName _ = "day9p1.txt"
-    prettyName _ = "Day 9: Part 1"
-    solution _ = answer
+  resourceName :: Day9Part1 -> FilePath
+  resourceName _ = "day9p1.txt"
+  prettyName _ = "Day 9: Part 1"
+  solution _ = answer

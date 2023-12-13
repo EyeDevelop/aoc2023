@@ -1,14 +1,16 @@
-module AoC2023.Day8.Part2 (
-    Day8Part2 (Day8Part2)
-) where
+module AoC2023.Day8.Part2
+  ( Day8Part2 (Day8Part2),
+  )
+where
+
+import AoC2023.Day8.Part1 (Direction, Node (..), parseDirections, takeDirection)
 import AoC2023.Exercise (Exercise (..))
-import AoC2023.Util.Parser (takeJust, Parser (parse))
-import AoC2023.Day8.Part1 (Direction, Node (..), takeDirection, parseDirections)
+import AoC2023.Util.Parser (Parser (parse), takeJust)
 import Data.List (isSuffixOf)
 
 findNodesWith :: (Node -> Bool) -> [Node] -> [Node]
 findNodesWith _ [] = []
-findNodesWith f ((Node name leftName rightName):ns)
+findNodesWith f ((Node name leftName rightName) : ns)
   | f (Node name leftName rightName) = Node name leftName rightName : findNodesWith f ns
   | otherwise = findNodesWith f ns
 
@@ -29,6 +31,6 @@ answer = show . foldl1 lcm . walk . takeJust . parse parseDirections
 data Day8Part2 = Day8Part2
 
 instance Exercise Day8Part2 where
-    resourceName _ = "day8p1.txt"
-    prettyName _ = "Day 8: Part 2"
-    solution _ = answer
+  resourceName _ = "day8p1.txt"
+  prettyName _ = "Day 8: Part 2"
+  solution _ = answer

@@ -1,4 +1,5 @@
 {-# LANGUAGE NumericUnderscores #-}
+
 module AoC2023.Day11.Part2
   ( Day11Part2 (Day11Part2),
   )
@@ -24,11 +25,6 @@ answer :: String -> String
 answer inp =
   let space = lines inp
    in (show . sum . map (uncurry (distanceWith space)) . pairs . galaxies . addCoords) space
-
--- in (show . uncurry (distanceWith space) . (!! 2) . pairs . galaxies . addCoords) space
---   show $ map (\pair -> (pair, uncurry (distanceWith space) pair)) $ pairs $ galaxies $ addCoords space
-
--- (0, 3) (4, 6)
 
 data Day11Part2 = Day11Part2
 

@@ -1,4 +1,5 @@
 {-# OPTIONS_GHC -Wno-incomplete-uni-patterns #-}
+
 module AoC2023.Day3.Part1
   ( Day3Part1 (Day3Part1),
     Position,

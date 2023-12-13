@@ -3,18 +3,18 @@ module AoC2023.Day6.Part2
   )
 where
 
+import AoC2023.Day6.Part1 (Distance, Race (Race), Time, waysToWin)
 import AoC2023.Exercise (Exercise (..))
-import AoC2023.Util.Parser (Parser (parse), literal, whitespace, number, many)
-import AoC2023.Day6.Part1 (Race (Race), Time, Distance, waysToWin)
+import AoC2023.Util.Parser (Parser (parse), literal, many, number, whitespace)
 
 parseRace :: Parser Race
 parseRace = (\t _ d -> Race (t, d)) <$> parseTime <*> whitespace <*> parseDistance
   where
     parseTime :: Parser Time
-    parseTime = (\_ _ n ns -> read (show n ++ concat ns)::Int) <$> literal "Time:" <*> whitespace <*> number <*> many ((\_ n -> show n) <$> whitespace <*> number)
+    parseTime = (\_ _ n ns -> read (show n ++ concat ns) :: Int) <$> literal "Time:" <*> whitespace <*> number <*> many ((\_ n -> show n) <$> whitespace <*> number)
 
     parseDistance :: Parser Distance
-    parseDistance = (\_ _ n ns -> read (show n ++ concat ns)::Int) <$> literal "Distance:" <*> whitespace <*> number <*> many ((\_ n -> show n) <$> whitespace <*> number)
+    parseDistance = (\_ _ n ns -> read (show n ++ concat ns) :: Int) <$> literal "Distance:" <*> whitespace <*> number <*> many ((\_ n -> show n) <$> whitespace <*> number)
 
 takeRace :: Maybe (Race, String) -> Race
 takeRace (Just (r, _)) = r

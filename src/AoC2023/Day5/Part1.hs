@@ -4,7 +4,7 @@ module AoC2023.Day5.Part1
 where
 
 import AoC2023.Exercise (Exercise (..))
-import AoC2023.Util.Parser (Parser (parse), delimited, literal, many, newline, notLiteral, number, numberList, times, whitespace, takeJust)
+import AoC2023.Util.Parser (Parser (parse), delimited, literal, many, newline, notLiteral, number, numberList, takeJust, times, whitespace)
 
 newtype Location = Location Int deriving (Show)
 

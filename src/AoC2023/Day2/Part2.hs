@@ -1,15 +1,16 @@
-module AoC2023.Day2.Part2 (
-    Day2Part2 (Day2Part2),
-) where
+module AoC2023.Day2.Part2
+  ( Day2Part2 (Day2Part2),
+  )
+where
 
+import AoC2023.Day2.Part1 (Colour (..), ColourCount (colour, count), Game (..), GameSet, parseGames)
 import AoC2023.Exercise (Exercise (..))
-import AoC2023.Day2.Part1 (GameSet, Colour (..), parseGames, Game (..), ColourCount (colour, count))
 
 maxColourCount :: ColourCount -> (Int, Int, Int) -> (Int, Int, Int)
 maxColourCount c (r, g, b) = case colour c of
-    Red -> (max r (count c), g, b)
-    Green -> (r, max g (count c), b)
-    Blue -> (r, g, max b (count c))
+  Red -> (max r (count c), g, b)
+  Green -> (r, max g (count c), b)
+  Blue -> (r, g, max b (count c))
 
 maxColourCountsInSet :: GameSet -> (Int, Int, Int)
 maxColourCountsInSet = foldr maxColourCount (0, 0, 0)
@@ -17,7 +18,7 @@ maxColourCountsInSet = foldr maxColourCount (0, 0, 0)
 combineMaxCounts :: [(Int, Int, Int)] -> (Int, Int, Int)
 combineMaxCounts [] = error "Empty list"
 combineMaxCounts [x] = x
-combineMaxCounts ((xr, xg, xb):(yr, yg, yb):xs) = combineMaxCounts ((max xr yr, max xg yg, max xb yb):xs)
+combineMaxCounts ((xr, xg, xb) : (yr, yg, yb) : xs) = combineMaxCounts ((max xr yr, max xg yg, max xb yb) : xs)
 
 maxColourCounts :: Game -> (Int, Int, Int)
 maxColourCounts = combineMaxCounts . map maxColourCountsInSet . sets
@@ -29,7 +30,8 @@ answer :: String -> String
 answer = show . sum . map (cubePower . maxColourCounts) . parseGames . lines
 
 data Day2Part2 = Day2Part2
+
 instance Exercise Day2Part2 where
-    resourceName _ = "day2p1.txt"
-    prettyName _ = "Day 2: Part 2"
-    solution _ = answer
+  resourceName _ = "day2p1.txt"
+  prettyName _ = "Day 2: Part 2"
+  solution _ = answer

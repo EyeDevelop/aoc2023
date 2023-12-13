@@ -3,14 +3,14 @@ module AoC2023.Exercise (Exercise, resourceName, prettyName, solution, solve) wh
 import System.FilePath
 
 class Exercise e where
-    resourceName :: e -> FilePath
-    prettyName :: e -> String
-    solution :: e -> String -> String
+  resourceName :: e -> FilePath
+  prettyName :: e -> String
+  solution :: e -> String -> String
 
-solve :: Exercise e => e -> IO ()
+solve :: (Exercise e) => e -> IO ()
 solve e = do
-    putStrLn $ "Running solution " ++ prettyName e ++ ":"
-    putStrLn "--- Output below ---\n"
+  putStrLn $ "Running solution " ++ prettyName e ++ ":"
+  putStrLn "--- Output below ---\n"
 
-    exerciseInput <- readFile ("resources" </> resourceName e)
-    putStrLn $ solution e exerciseInput
+  exerciseInput <- readFile ("resources" </> resourceName e)
+  putStrLn $ solution e exerciseInput
