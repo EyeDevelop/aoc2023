@@ -115,11 +115,11 @@ usePipe pipe ((row, col), dir) = case (pipe, dir) of
 
 constructLoop :: Grid -> Position -> [[(Position, Int)]]
 constructLoop grid (row, col) =
-    [ walkLoop ((row - 1, col), North) 1,
-      walkLoop ((row + 1, col), South) 1,
-      walkLoop ((row, col - 1), West) 1,
-      walkLoop ((row, col + 1), East) 1
-    ]
+  [ walkLoop ((row - 1, col), North) 1,
+    walkLoop ((row + 1, col), South) 1,
+    walkLoop ((row, col - 1), West) 1,
+    walkLoop ((row, col + 1), East) 1
+  ]
   where
     walkLoop :: (Position, Direction) -> Int -> [(Position, Int)]
     walkLoop (pos, dir) step
